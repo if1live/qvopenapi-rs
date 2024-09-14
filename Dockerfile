@@ -11,6 +11,11 @@ RUN apt-get update
 RUN apt-get install -y \
     fonts-nanum fonts-nanum-coding
 
+# qvopenapi 어딘가에 브라우저를 띄우는 코드가 숨어있는거로 추정 
+# /usr/lib/firefox/firefox http://www.mynamuh.com/tx/wooriwmBoard/boardList.action?sBoard_Id=25&sType_Cd=3000000000&isHTS=Y
+# 위와 같이 firefox가 호출되서 cpu, mem 사용량이 폭등한다. 이를 방지하려고 브라우저 제거
+RUN apt-get remove -y firefox
+
 # Set correct locale
 RUN locale-gen ko_KR.UTF-8 && \
     update-locale LANG=ko_KR.UTF-8 LC_MESSAGES=POSIX
