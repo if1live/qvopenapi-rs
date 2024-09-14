@@ -996,31 +996,9 @@ dependencies = [
  "libloading 0.8.0",
  "log",
  "once_cell",
- "qvopenapi-bindings 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "qvopenapi-sys 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "qvopenapi-bindings",
+ "qvopenapi-sys",
  "rpassword",
- "serde",
- "serde_json",
- "strum",
- "strum_macros",
- "windows",
-]
-
-[[package]]
-name = "qvopenapi"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bfa4157ed8da61b34b6e6614a525f9807b7e93602f729ad29c9eaa1b1d53f0c2"
-dependencies = [
- "chrono",
- "custom_error",
- "encoding",
- "lazy_static",
- "libloading 0.8.0",
- "log",
- "once_cell",
- "qvopenapi-bindings 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "qvopenapi-sys 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
  "strum",
@@ -1035,7 +1013,7 @@ dependencies = [
  "env_logger 0.10.0",
  "lazy_static",
  "log",
- "qvopenapi 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "qvopenapi",
  "rpassword",
  "serde",
  "serde_json",
@@ -1043,30 +1021,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "qvopenapi-async"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dea63a109dfc15ff214c74750e5668a04c878c3e5ca99025325988b6f68c82de"
-dependencies = [
- "lazy_static",
- "log",
- "qvopenapi 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "qvopenapi-bindings"
 version = "0.1.0"
-dependencies = [
- "bindgen",
-]
-
-[[package]]
-name = "qvopenapi-bindings"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "595e489b5769bc012aeba0e076634a3dea068f30f0f96dd414a1b720384e7d88"
 dependencies = [
  "bindgen",
 ]
@@ -1077,7 +1033,7 @@ version = "0.1.0"
 dependencies = [
  "env_logger 0.10.0",
  "log",
- "qvopenapi-async 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "qvopenapi-async",
  "serde",
  "serde_json",
  "tokio",
@@ -1087,17 +1043,6 @@ dependencies = [
 [[package]]
 name = "qvopenapi-sys"
 version = "0.1.0"
-dependencies = [
- "libc",
- "libloading 0.8.0",
- "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "qvopenapi-sys"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b701179b855e94bdb815901ff4816b384da4b3136fe37ae5d9980fbd9c74df2"
 dependencies = [
  "libc",
  "libloading 0.8.0",
