@@ -41,7 +41,7 @@ pub fn parse_c8010_response(
             accnt_namez40: parse_string(&res.accnt_namez40)?,
             pass_wdz8: parse_string(&res.pass_wdz8)?,
             pass2_wdz8: parse_string(&res.pass2_wdz8)?,
-            valid_codez1: parse_string(&res.valid_codez1)?,
+            valid_codez1: parse_number(&res.valid_codez1)?,
         }))
     }
 }
@@ -51,7 +51,7 @@ struct C8010Response {
     pub accnt_namez40: String,
     pub pass_wdz8: String,
     pub pass2_wdz8: String,
-    pub valid_codez1: String,
+    pub valid_codez1: Option<i64>,
 }
 
 pub const BLOCK_NAME_C8010_OUT: &str = "c8010OutBlock";
