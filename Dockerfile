@@ -1,5 +1,5 @@
 # ============== Container setup
-FROM scottyhardy/docker-wine:stable-8.0 AS setup
+FROM scottyhardy/docker-wine:stable-9.0 AS setup
 
 VOLUME /namu/NPKI
 
