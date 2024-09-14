@@ -2,9 +2,7 @@
 // 계좌명/비밀번호조회(c8010)
 typedef struct tagc8010InBlock // 기본입력
 {
-    // 계좌번호
-    char accnt_noz11[11];
-    char _accnt_noz11;
+    char _blank;
 } Tc8010InBlock;
 
 typedef struct tagc8010OutBlock // 화면출력

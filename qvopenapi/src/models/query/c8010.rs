@@ -13,15 +13,11 @@ pub const TR_CODE_C8010: &str = "c8010";
 #[derive(Debug, Clone, Deserialize)]
 pub struct C8010Request {
     pub account_index: i32,
-    pub account_no: String,
 }
 
 impl C8010Request {
-    pub fn new(account_index: i32, account_no: String) -> C8010Request {
-        C8010Request {
-            account_index,
-            account_no,
-        }
+    pub fn new(account_index: i32) -> C8010Request {
+        C8010Request { account_index }
     }
 
     pub fn into_raw(&self) -> Arc<RawQueryRequest<Tc8010InBlock>> {
@@ -29,8 +25,7 @@ impl C8010Request {
             TR_CODE_C8010,
             self.account_index,
             Box::new(Tc8010InBlock {
-                accnt_noz11: [self.account_no.as_ptr() as c_char; 11],
-                _accnt_noz11: ' ' as c_char,
+                _blank: ' ' as c_char,
             }),
         ))
     }
