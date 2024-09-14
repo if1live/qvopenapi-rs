@@ -1,4 +1,6 @@
+mod c8010;
 mod c8201;
+pub use c8010::*;
 pub use c8201::*;
 use qvopenapi_bindings::OutDataBlock;
 use serde::Serialize;
@@ -52,6 +54,7 @@ fn parse_block(
     match block_name {
         BLOCK_NAME_C8201_OUT => parse_c8201_response(block_data, block_len),
         BLOCK_NAME_C8201_OUT1_ARRAY => parse_c8201_response1_array(block_data, block_len),
+        BLOCK_NAME_C8010_OUT => parse_c8010_response(block_data, block_len),
         _ => Err(QvOpenApiError::UnimplementedBlockError {
             block_name: block_name.into(),
         }),
