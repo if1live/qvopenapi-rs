@@ -2,7 +2,8 @@
 // 계좌명/비밀번호조회(c8010)
 typedef struct tagc8010InBlock // 기본입력
 {
-    char _blank;
+    char pswd_noz44[44];
+    char _pswd_noz44; // 비밀번호
 } Tc8010InBlock;
 
 typedef struct tagc8010OutBlock // 화면출력
@@ -14,7 +15,7 @@ typedef struct tagc8010OutBlock // 화면출력
     // pass_wdz8
     char pass_wdz8[44];
     char _pass_wdz8;
-    
+
     // pass2_wdz8
     char pass2_wdz8[44];
     char _pass2_wdz8;
@@ -26,8 +27,8 @@ typedef struct tagc8010OutBlock // 화면출력
 
 typedef struct tagc8010
 {
-    Tc8010InBlock c8010inblock;         // 기본입력
-    Tc8010OutBlock c8010outblock;       // 화면출력
+    Tc8010InBlock c8010inblock;   // 기본입력
+    Tc8010OutBlock c8010outblock; // 화면출력
 } Tc8010;
 
 // X08a8594.fdf[조회용 해외증권잔고]

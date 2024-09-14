@@ -25,7 +25,8 @@ impl C8010Request {
             TR_CODE_C8010,
             self.account_index,
             Box::new(Tc8010InBlock {
-                _blank: ' ' as c_char,
+                pswd_noz44: [' ' as c_char; 44],
+                _pswd_noz44: ' ' as c_char,
             }),
         ))
     }
