@@ -13,30 +13,18 @@ pub const TR_CODE_S8202: &str = "s8202";
 #[derive(Debug, Clone, Deserialize)]
 pub struct S8202Request {
     pub account_index: i32,
-    pub balance_type: char,
-
-    // 종목대분류
-    pub iem_llf_cdz2: String,
-
-    // 자산기준
-    pub aet_bsez1: char,
 }
 
 impl S8202Request {
-    pub fn new(account_index: i32, balance_type: char) -> S8202Request {
-        S8202Request {
-            account_index,
-            balance_type,
-            iem_llf_cdz2: String::from("  "),
-            aet_bsez1: ' ',
-        }
+    pub fn new(account_index: i32) -> S8202Request {
+        S8202Request { account_index }
     }
 
     pub fn into_raw(&self) -> Arc<RawQueryRequest<Ts8202InBlock>> {
-        // TODO: 더 멀쩡하게?
-        let mut result = [0i8; 2];
-        result[0] = '0' as i8;
-        result[1] = '1' as i8;
+        // 어떤 값을 넣어야하는지 몰라서 하드코딩으로 땜빵
+        let balance_type = '1';
+        let aet_bsez1 = '1';
+        let iem_llf_cdz2: [i8; 2] = [b'0' as i8, b'0' as i8];
 
         Arc::new(RawQueryRequest::new(
             TR_CODE_S8202,
@@ -44,11 +32,11 @@ impl S8202Request {
             Box::new(Ts8202InBlock {
                 pswd_noz8: [' ' as c_char; 44],
                 _pswd_noz8: ' ' as c_char,
-                bnc_bse_cdz1: [self.balance_type as c_char],
+                bnc_bse_cdz1: [balance_type as c_char],
                 _bnc_bse_cdz1: ' ' as c_char,
-                iem_llf_cdz2: result,
+                iem_llf_cdz2: iem_llf_cdz2,
                 _iem_llf_cdz2: ' ' as c_char,
-                aet_bsez1: [self.aet_bsez1 as c_char],
+                aet_bsez1: [aet_bsez1 as c_char],
                 _aet_bsez1: ' ' as c_char,
             }),
         ))
