@@ -31,6 +31,17 @@ pub fn parse_ratio_str(src: &[c_char]) -> Result<Option<f64>, QvOpenApiError> {
 }
 
 /**
+ * s8202OutBlock1.earn_ratez15 에서 발견된 패턴
+ * "-00007494145199" -> -7.49
+ * "000017676440387" -> 17.67
+ */
+pub fn parse_ratio_prec(src: &[c_char], prec: u32) -> Result<Option<f64>, QvOpenApiError> {
+    let prec = 10_i64.pow(prec as u32);
+    let prec = prec as f64;
+    Ok(parse_number(src)?.map(|num| num as f64 / prec))
+}
+
+/**
  * "    1226" -> 12.26
  */
 pub fn parse_ratio(src: &[c_char]) -> Result<Option<f64>, QvOpenApiError> {

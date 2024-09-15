@@ -76,19 +76,19 @@ async fn query_c8010(
     Ok(reply::with_status(reply::json(&result), StatusCode::OK))
 }
 
-pub fn filter_s8064(client: Arc<QvOpenApiAsyncClient>) -> BoxedFilter<(impl Reply,)> {
+pub fn filter_s8202(client: Arc<QvOpenApiAsyncClient>) -> BoxedFilter<(impl Reply,)> {
     let cloned = client.clone();
-    let handler = move |req: S8064Request| query_s8064(cloned.clone(), req);
+    let handler = move |req: S8202Request| query_s8202(cloned.clone(), req);
     post()
-        .and(warp::path!("query" / "s8064"))
+        .and(warp::path!("query" / "s8202"))
         .and(body::json())
         .and_then(handler)
         .boxed()
 }
 
-async fn query_s8064(
+async fn query_s8202(
     client: Arc<QvOpenApiAsyncClient>,
-    request: S8064Request,
+    request: S8202Request,
 ) -> Result<impl Reply, Infallible> {
     let ret = client.query(request.into_raw()).await;
 
