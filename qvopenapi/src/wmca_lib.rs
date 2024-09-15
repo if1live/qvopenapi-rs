@@ -106,6 +106,16 @@ pub fn disconnect() -> Result<(), QvOpenApiError> {
 }
 
 #[allow(dead_code)]
+pub fn set_order_pwd(hash_out: &mut [u8; 44], password: &str) -> Result<(), QvOpenApiError> {
+    let hash_out_ptr = hash_out.as_mut_ptr() as *mut c_char;
+    let password_cstr = make_c_string(password);
+    c_bool_to_result((get_lib()?.set_order_pwd)(
+        hash_out_ptr,
+        password_cstr.as_ptr(),
+    ))
+}
+
+#[allow(dead_code)]
 pub fn set_account_index_pwd<T>(
     input: &mut T,
     account_index: i32,

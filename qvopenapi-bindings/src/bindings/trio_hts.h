@@ -1,3 +1,36 @@
+// X10a8285.fdf[실시간 해외증권잔고]
+typedef struct tagc8010InBlock // 기본입력
+{
+    // 계좌번호
+    char accnt_noz11[11];
+    char _accnt_noz11;
+} Tc8010InBlock;
+
+typedef struct tagc8010OutBlock // 화면출력
+{
+    // accnt_namez40
+    char accnt_namez40[40];
+    char _accnt_namez40;
+
+    // pass_wdz8
+    char pass_wdz8[8];
+    char _pass_wdz8;
+    
+    // pass2_wdz8
+    char pass2_wdz8[8];
+    char _pass2_wdz8;
+
+    // 0:정상1:오류
+    char valid_codez1[1];
+    char _valid_codez1;
+} Tc8010OutBlock;
+
+typedef struct tagc8010
+{
+    Tc8010InBlock c8010inblock;         // 기본입력
+    Tc8010OutBlock c8010outblock;       // 화면출력
+} Tc8010;
+
 // X08a8594.fdf[조회용 해외증권잔고]
 // X10a8285.fdf[실시간 해외증권잔고]
 typedef struct tags8064InBlock // 기본입력
