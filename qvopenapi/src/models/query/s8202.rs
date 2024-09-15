@@ -4,7 +4,7 @@ use std::sync::Arc;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
-use crate::utils::{parse_number, parse_ratio, parse_string};
+use crate::utils::{parse_number, parse_ratio, parse_ratio_prec, parse_ratio_str, parse_string};
 use crate::{error::*, models::*};
 use qvopenapi_bindings::{Ts8202InBlock, Ts8202OutBlock, Ts8202OutBlock1};
 
@@ -33,6 +33,11 @@ impl S8202Request {
     }
 
     pub fn into_raw(&self) -> Arc<RawQueryRequest<Ts8202InBlock>> {
+        // TODO: 더 멀쩡하게?
+        let mut result = [0i8; 2];
+        result[0] = '0' as i8;
+        result[1] = '1' as i8;
+
         Arc::new(RawQueryRequest::new(
             TR_CODE_S8202,
             self.account_index,
@@ -41,7 +46,7 @@ impl S8202Request {
                 _pswd_noz8: ' ' as c_char,
                 bnc_bse_cdz1: [self.balance_type as c_char],
                 _bnc_bse_cdz1: ' ' as c_char,
-                iem_llf_cdz2: [self.iem_llf_cdz2.as_ptr() as c_char; 2],
+                iem_llf_cdz2: result,
                 _iem_llf_cdz2: ' ' as c_char,
                 aet_bsez1: [self.aet_bsez1 as c_char],
                 _aet_bsez1: ' ' as c_char,
@@ -110,19 +115,19 @@ fn parse_s8202_response1(res: &Ts8202OutBlock1) -> Result<S8202Response1, QvOpen
         issue_namez40: parse_string(&res.issue_namez40)?,
         bal_typez6: parse_string(&res.bal_typez6)?,
         loan_datez8: parse_string(&res.loan_datez8)?,
-        bal_qtyz18: parse_string(&res.bal_qtyz18)?,
-        unstl_qtyz18: parse_string(&res.unstl_qtyz18)?,
+        bal_qtyz18: parse_number(&res.bal_qtyz18)?,
+        unstl_qtyz18: parse_number(&res.unstl_qtyz18)?,
         slby_amtz18: parse_number(&res.slby_amtz18)?,
         byn_amtz18: parse_number(&res.byn_amtz18)?,
         prsnt_pricez18: parse_number(&res.prsnt_pricez18)?,
         lsnpf_amtz18: parse_number(&res.lsnpf_amtz18)?,
         lsnpf_amt_wonz18: parse_number(&res.lsnpf_amt_wonz18)?,
-        earn_ratez15: parse_ratio(&res.earn_ratez15)?,
+        earn_ratez15: parse_ratio_prec(&res.earn_ratez15, 9)?,
         mrgn_codez4: parse_string(&res.mrgn_codez4)?,
-        jan_qtyz18: parse_string(&res.jan_qtyz18)?,
+        jan_qtyz18: parse_number(&res.jan_qtyz18)?,
         expr_datez8: parse_string(&res.expr_datez8)?,
-        ass_amtz18: parse_string(&res.ass_amtz18)?,
-        issue_mgamt_ratez10: parse_string(&res.issue_mgamt_ratez10)?,
+        ass_amtz18: parse_number(&res.ass_amtz18)?,
+        issue_mgamt_ratez10: parse_ratio_str(&res.issue_mgamt_ratez10)?,
         medo_slby_amtz18: parse_number(&res.medo_slby_amtz18)?,
         post_lsnpf_amtz18: parse_number(&res.post_lsnpf_amtz18)?,
         cur_cdz3: parse_string(&res.cur_cdz3)?,
@@ -170,8 +175,8 @@ struct S8202Response1 {
     pub issue_namez40: String,
     pub bal_typez6: String,
     pub loan_datez8: String,
-    pub bal_qtyz18: String,
-    pub unstl_qtyz18: String,
+    pub bal_qtyz18: Option<i64>,
+    pub unstl_qtyz18: Option<i64>,
     pub slby_amtz18: Option<i64>,
     pub byn_amtz18: Option<i64>,
     pub prsnt_pricez18: Option<i64>,
@@ -179,10 +184,10 @@ struct S8202Response1 {
     pub lsnpf_amt_wonz18: Option<i64>,
     pub earn_ratez15: Option<f64>,
     pub mrgn_codez4: String,
-    pub jan_qtyz18: String,
+    pub jan_qtyz18: Option<i64>,
     pub expr_datez8: String,
-    pub ass_amtz18: String,
-    pub issue_mgamt_ratez10: String,
+    pub ass_amtz18: Option<i64>,
+    pub issue_mgamt_ratez10: Option<f64>,
     pub medo_slby_amtz18: Option<i64>,
     pub post_lsnpf_amtz18: Option<i64>,
     pub cur_cdz3: String,
