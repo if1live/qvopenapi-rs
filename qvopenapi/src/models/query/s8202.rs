@@ -76,7 +76,7 @@ pub fn parse_s8202_response(
             dpsit_amt_d1_z15: parse_number(&res.dpsit_amt_d1_z15)?,
             dpsit_amt_d2_z18: parse_number(&res.dpsit_amt_d2_z18)?,
             tot_eal_plsz15: parse_number(&res.tot_eal_plsz15)?,
-            pft_rtz15: parse_ratio(&res.pft_rtz15)?,
+            pft_rtz15: parse_ratio_prec(&res.pft_rtz15, 9)?,
             lsnpf_amt_wonz15: parse_number(&res.lsnpf_amt_wonz15)?,
         }))
     }
